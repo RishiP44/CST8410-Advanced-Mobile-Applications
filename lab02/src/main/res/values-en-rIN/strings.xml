@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+<string name="app_name">Lab02</string>
+<string name="greeting_text">Namaste from Lab 2</string>
+</resources>
