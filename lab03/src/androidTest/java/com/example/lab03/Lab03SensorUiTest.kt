@@ -13,7 +13,7 @@ class Lab03SensorUiTest {
 
     @Test
     fun lightField_isVisible() {
-        Thread.sleep(1000) // give sensors time to start
+        Thread.sleep(1000)
         composeRule.onNodeWithTag("light_text").assertIsDisplayed()
     }
 
