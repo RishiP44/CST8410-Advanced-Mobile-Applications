@@ -85,13 +85,18 @@ fun Lab06Screen(
 
     // ---------- Permissions ----------
     val btPermissions = remember {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-            arrayOf(
-                Manifest.permission.BLUETOOTH_ADVERTISE,
-                Manifest.permission.BLUETOOTH_SCAN,
-                Manifest.permission.BLUETOOTH_CONNECT
-            )
-        } else emptyArray()
+        when {
+            Build.VERSION.SDK_INT >= Build.VERSION_CODES.S -> {
+                arrayOf(
+                    Manifest.permission.BLUETOOTH_ADVERTISE,
+                    Manifest.permission.BLUETOOTH_SCAN,
+                    Manifest.permission.BLUETOOTH_CONNECT
+                )
+            }
+            else -> {
+                arrayOf(Manifest.permission.ACCESS_FINE_LOCATION)
+            }
+        }
     }
 
     fun hasBtPermissions(): Boolean {
@@ -249,8 +254,10 @@ fun Lab06Screen(
     // ---------- QR URL ----------
     val qrUrl = remember(serverUuid) {
         if (serverUuid != null) {
-            "https://api.qrserver.com/v1/create-qr-code/?size=350x350&data=$serverUuid"
-        } else ""
+            "https://api.qrserver.com/v1/create-qr-code/?size=350x350&data=${serverUuid.toString()}"
+        } else {
+            ""
+        }
     }
 
     // ---------- Display message ----------
@@ -373,16 +380,12 @@ fun Lab06Screen(
                                     message = "trying to connect to $uuid"
 
                                     // BLE scan filter by UUID
-                                    val filter = ScanFilter.Builder()
-                                        .setServiceUuid(ParcelUuid(uuid))
-                                        .build()
-
                                     val settings = ScanSettings.Builder()
                                         .setScanMode(ScanSettings.SCAN_MODE_LOW_LATENCY)
                                         .build()
 
                                     isClientScanning = true
-                                    bleScanner?.startScan(listOf(filter), settings, scanCallback)
+                                    bleScanner?.startScan(null, settings, scanCallback)
 
                                 } catch (_: Exception) {
                                     scannedServerUuid = null
@@ -420,7 +423,8 @@ fun Lab06Screen(
 
                 AsyncImage(
                     model = qrUrl,
-                    contentDescription = "Server UUID QR Code"
+                    contentDescription = "Server UUID QR Code",
+                    modifier = Modifier.size(300.dp)
                 )
 
                 Spacer(modifier = Modifier.height(8.dp))
