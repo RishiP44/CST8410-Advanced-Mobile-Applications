@@ -47,7 +47,7 @@ class MainActivity : ComponentActivity() {
         val emulatorBaseUrl = "http://10.0.2.2:8080"
 
         // Phone -> PC server via ngrok (changes each time you restart ngrok)
-        val phoneBaseUrl = "https://0066-2607-fea8-c263-6b00-f9fa-144e-4e2-e400.ngrok-free.app"
+        val phoneBaseUrl = "https://bd25-192-197-88-93.ngrok-free.app"
 
         // CURL uses emulatorBaseUrl (matches what the Android app is doing)
         val curlCommand =
