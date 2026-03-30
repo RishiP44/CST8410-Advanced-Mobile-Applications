@@ -16,7 +16,7 @@
       </SelectionState>
       <SelectionState runConfigName="lab06">
         <option name="selectionMode" value="DROPDOWN" />
-        <DropdownSelection timestamp="2026-03-12T18:11:59.966546500Z">
+        <DropdownSelection timestamp="2026-03-16T20:06:35.662265100Z">
           <Target type="DEFAULT_BOOT">
             <handle>
               <DeviceId pluginId="PhysicalDevice" identifier="serial=47161FDJH00218" />
@@ -27,7 +27,7 @@
       </SelectionState>
       <SelectionState runConfigName="lab07">
         <option name="selectionMode" value="DROPDOWN" />
-        <DropdownSelection timestamp="2026-03-13T01:33:41.951157300Z">
+        <DropdownSelection timestamp="2026-03-16T21:06:52.610621300Z">
           <Target type="DEFAULT_BOOT">
             <handle>
               <DeviceId pluginId="PhysicalDevice" identifier="serial=333410c5" />
@@ -35,6 +35,9 @@
           </Target>
         </DropdownSelection>
         <DialogSelection />
+      </SelectionState>
+      <SelectionState runConfigName="lab08">
+        <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>
     </selectionStates>
   </component>
