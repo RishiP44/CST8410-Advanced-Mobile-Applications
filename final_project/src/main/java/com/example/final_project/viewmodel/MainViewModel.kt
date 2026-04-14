@@ -170,7 +170,9 @@ class MainViewModel(
             localDeviceName = localDeviceName,
             localDeviceUuid = localDeviceUuid,
             remoteDeviceName = remoteDeviceName,
-            remoteDeviceUuid = remoteDeviceUuid
+            remoteDeviceUuid = remoteDeviceUuid,
+            remoteAmbientLight = remoteAmbientLight,
+            remoteProximity = remoteProximity
         )
 
         val entity = SensorReadingEntity(

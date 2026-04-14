@@ -9,5 +9,7 @@ data class SensorReading(
     val localDeviceName: String,
     val localDeviceUuid: String,
     val remoteDeviceName: String,
-    val remoteDeviceUuid: String
+    val remoteDeviceUuid: String,
+    val remoteAmbientLight: String = "",
+    val remoteProximity: String = ""
 )

@@ -19,9 +19,17 @@ import kotlin.concurrent.thread
 
 class BluetoothHelper(
     private val context: Context,
+    private val provideLocalData: () -> LocalSensorPayload,
     private val onRemoteDataReceived: (deviceName: String, deviceUuid: String, light: Float, proximity: Float) -> Unit,
     private val onStatusChanged: (String) -> Unit
 ) {
+
+    data class LocalSensorPayload(
+        val deviceName: String,
+        val deviceUuid: String,
+        val ambientLight: Float,
+        val proximity: Float
+    )
 
     companion object {
         const val APP_NAME = "FinalProjectBluetooth"
@@ -70,6 +78,8 @@ class BluetoothHelper(
                 val remoteName = socket?.remoteDevice?.name ?: "Unknown Device"
                 onStatusChanged("Connected to $remoteName")
 
+                sendCurrentSensorData()
+
                 socket?.let { listenForIncomingData(it) }
             } catch (e: Exception) {
                 onStatusChanged("Server error: ${e.message}")
@@ -111,6 +121,7 @@ class BluetoothHelper(
                 clientSocket = socket
 
                 onStatusChanged("Connected to ${targetDevice.name}")
+                sendCurrentSensorData()
                 listenForIncomingData(socket)
             } catch (e: Exception) {
                 onStatusChanged("Client error: ${e.message}")
@@ -144,6 +155,16 @@ class BluetoothHelper(
                 onStatusChanged("Send failed: ${e.message}")
             }
         }
+    }
+
+    private fun sendCurrentSensorData() {
+        val payload = provideLocalData()
+        sendSensorData(
+            localDeviceName = payload.deviceName,
+            localDeviceUuid = payload.deviceUuid,
+            ambientLight = payload.ambientLight,
+            proximity = payload.proximity
+        )
     }
 
     private fun listenForIncomingData(socket: BluetoothSocket) {

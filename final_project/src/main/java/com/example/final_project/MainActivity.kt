@@ -1,7 +1,6 @@
 package com.example.final_project
 
 import android.Manifest
-import android.bluetooth.BluetoothAdapter
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.os.Build
@@ -54,6 +53,14 @@ class MainActivity : ComponentActivity() {
 
         bluetoothHelper = BluetoothHelper(
             context = this,
+            provideLocalData = {
+                BluetoothHelper.LocalSensorPayload(
+                    deviceName = mainViewModel.localDeviceName,
+                    deviceUuid = mainViewModel.localDeviceUuid,
+                    ambientLight = mainViewModel.localAmbientLight.replace(" lx", "").toFloatOrNull() ?: 0f,
+                    proximity = mainViewModel.localProximity.replace(" cm", "").toFloatOrNull() ?: 0f
+                )
+            },
             onRemoteDataReceived = { deviceName, deviceUuid, light, proximity ->
                 runOnUiThread {
                     mainViewModel.updateRemoteFromBluetooth(
@@ -81,7 +88,7 @@ class MainActivity : ComponentActivity() {
                         mainViewModel.addReading(
                             photoBase64 = bitmapToBase64(bitmap)
                         )
-                        // 🔥 SEND DATA TO OTHER PHONE
+
                         val lightValue = mainViewModel.localAmbientLight.replace(" lx", "").toFloatOrNull() ?: 0f
                         val proximityValue = mainViewModel.localProximity.replace(" cm", "").toFloatOrNull() ?: 0f
 

@@ -7,7 +7,7 @@ import java.net.URL
 object ServerApiHelper {
 
     // Replace this with your laptop/ngrok server URL
-    private const val BASE_URL = "https://a0ac-192-197-88-93.ngrok-free.app"
+    private const val BASE_URL = "https://0352-192-197-88-93.ngrok-free.app"
 
     fun clearServerHistory(): Boolean {
         return try {

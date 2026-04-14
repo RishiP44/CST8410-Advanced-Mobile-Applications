@@ -12,7 +12,7 @@ import java.net.URL
 object ServerApiHelper {
 
     // Change this later to your real server URL
-    private const val BASE_URL = "https://a0ac-192-197-88-93.ngrok-free.app"
+    private const val BASE_URL = "https://0352-192-197-88-93.ngrok-free.app"
 
     suspend fun sendReading(reading: SensorReading): Boolean = withContext(Dispatchers.IO) {
         try {
@@ -32,6 +32,8 @@ object ServerApiHelper {
                 put("localDeviceUuid", reading.localDeviceUuid)
                 put("remoteDeviceName", reading.remoteDeviceName)
                 put("remoteDeviceUuid", reading.remoteDeviceUuid)
+                put("remoteAmbientLight", reading.remoteAmbientLight)
+                put("remoteProximity", reading.remoteProximity)
             }
 
             val writer = BufferedWriter(OutputStreamWriter(connection.outputStream))
